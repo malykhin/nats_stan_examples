@@ -1,0 +1,24 @@
+version: "3"
+services:
+  producer:
+    image: node:alpine3.11
+    volumes: 
+      - ./:/usr/app
+    command: "npm run start --prefix=/usr/app -- --mode=stan_produce"
+
+  consumer:
+    image: node:alpine3.11
+    volumes: 
+      - ./:/usr/app
+    command: "npm run start --prefix=/usr/app -- --mode=stan_consume"
+
+  nats:
+    image: nats-streaming
+
+  # nats:
+  #   image: nats
+  #   command: "-c /etc/nats/nats.conf --cluster nats://0.0.0.0:6222 --routes=nats://ruser:T0pS3cr3t@nats:6222"
+  #   volumes:
+  #      - ./config/:/etc/nats
+
+       
